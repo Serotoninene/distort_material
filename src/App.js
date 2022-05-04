@@ -1,25 +1,24 @@
-import { Suspense, useRef } from "react";
-// Three
-import { TextureLoader } from "three";
+import { Suspense } from "react";
 // R3F + Drei
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-// Assets
-import cakes from "./Assets/Images/cakes.jpg";
-import canap from "./Assets/Images/canap.jpg";
-import eliott from "./Assets/Images/eliott.jpg";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, shaderMaterial } from "@react-three/drei";
+// Shaders
+import vertexShader from "./Three/Shaders/vertexShader.glsl";
+import fragmentShader from "./Three/Shaders/fragmentShader.glsl";
 // Styling
 import "./Scss/style.scss";
 
 function Scene() {
-  const spriteRef = useRef();
-  const texture = useLoader(TextureLoader, cakes);
-  console.log(spriteRef.current);
-  useFrame((state, delta) => {});
+  console.log(fragmentShader);
+
   return (
-    <sprite ref={spriteRef} scale={[5, 5]}>
-      <spriteMaterial map={texture} />
-    </sprite>
+    <mesh>
+      <boxBufferGeometry />
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+      />
+    </mesh>
   );
 }
 
